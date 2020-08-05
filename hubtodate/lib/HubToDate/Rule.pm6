@@ -19,7 +19,7 @@ package HubToDate::Rule {
 
       for <repository release verification options> {
         %contents{$_} //
-          (log ERROR, "Missing [$_] in rule {$!file.basename}") && exit 1;
+          log ERROR, "Missing [$_] in rule {$!file.basename}";
       }
 
       $!repository = Repository.new: settings => %contents{'repository'},

@@ -14,8 +14,7 @@ package HubToDate::Setting {
       my $field = $::(self.^name)::name;
       for @!available -> $setting {
         (%!settings{$setting} or $setting.ends-with('?'))
-        || (log ERROR, "Missing $setting inside of [$field] in rule {$!rule.file.basename}")
-        && exit 1;
+        || log ERROR, "Missing $setting inside of [$field] in rule {$!rule.file.basename}";
       }
     }
   }

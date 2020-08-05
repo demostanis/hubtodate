@@ -47,11 +47,8 @@ package HubToDate::Release {
           return ("$PKG_DIR/$to/%repository{'tag_name'}/%asset{'name'}",
                   %repository);
         } elsif $i == %repository{"assets"}.elems - 1 {
-          log ERROR, "Could't find archive, available ones are:";
-          for %repository{"assets"}.values -> %asset {
-            say "  %asset{'name'}" ;
-          }
-          exit 1;
+          log ERROR, "Could't find archive, available ones are:
+{%repository{"assets"}.values.map('   ' ~ *{'name'} ~ $?NL)}";
         }
       }
     }
@@ -63,10 +60,8 @@ package HubToDate::Release {
 
         my $proc = shell "{S/'<archive>'/$archive/ with $.settings{'unpack'}}",
           cwd => $archive.IO.dirname;
-        if $proc.exitcode {
-          log ERROR, "An error occured while trying to unpack archive: $proc.err";
-          exit 1;
-        }
+
+        log ERROR, "An error occured while trying to unpack archive: $proc.err" if $proc.exitcode;
         log VERBOSE, "Done!";
       }
       $archive.IO.dirname;
@@ -78,10 +73,8 @@ package HubToDate::Release {
 
       my $proc = shell $.settings{'install'},
         cwd => $folder;
-      if $proc.exitcode {
-        log ERROR, "An error occured while trying to install: $proc.err";
-        exit 1;
-      }
+
+      log ERROR, "An error occured while trying to install: $proc.err" if $proc.exitcode;
       log VERBOSE, "Done!";
     }
   }

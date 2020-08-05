@@ -1,3 +1,7 @@
+# This file is to run HubToDate inside of Docker
+# A normal user should take a look at ./install.sh
+# and `hubtodate` command to run
+
 COMMAND=$(test $1 && echo $1 || echo run)
 case $COMMAND in
   run)

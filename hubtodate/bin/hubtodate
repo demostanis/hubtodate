@@ -1,3 +1,6 @@
 #! /usr/bin/env raku
 
+# This is the main executable, it simply
+# imports the CLI module which should have
+# been installed by zef
 use HubToDate::CLI;

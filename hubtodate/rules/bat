@@ -13,7 +13,7 @@ name = bat
 [release]
 match = 'bat_' (\d+'.'?)+ '_amd64.deb' ; Regular expression to match a new release
                                        ; Note that this is a Raku one, and that you
-                                       ; mustn't surround it with backslashes.
+                                       ; mustn't surround it with backslashes
 
 unpack = ... ; Command to execute in order to unpack
              ; the newly downloaded archive, such as

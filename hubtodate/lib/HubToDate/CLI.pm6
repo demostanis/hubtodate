@@ -8,7 +8,7 @@ package HubToDate::CLI {
     Str :$rules-dir?,    #= Specify a custom rules directory
     Bool :$no-warnings?  #= Disable any warning
   ) is export {
-    (log ERROR, "This program does not work without root.") && exit 1 if $*USER != 0;
+    log ERROR, "This program does not work without root.") unless $*USER == 0;
 
     @RULES_DIRS.prepend($rules-dir) if $rules-dir.defined;
 
