@@ -1,0 +1,14 @@
+[repository]
+owner = jesseduffield
+name = lazydocker
+
+[release]
+match = 'lazydocker_' \d+ % '.' '_Linux_x86_64.tar.gz'
+unpack = tar xzf <archive> lazydocker
+install = mv -f lazydocker /usr/bin
+root = yes
+
+[verification]
+sha256sums = checksums.txt
+
+[options]
