@@ -4,27 +4,39 @@ use WWW;
 
 package HubToDate::Verification {
   class Verification does Setting is export {
-    our $name = "verification";
+    our Str $name = "verification"; # Field name
 
-    method check(:@stuff (Str $archive where *.IO.f, %repository)) {
+    method check(@ (Str:D $archive where *.IO.f, Hash:D %repository)) --> Str:D {
+      # In case sha256sums setting was specified,
+      # download the checksums file and verify files
+      # by spawning a `sha256sum` process
+      # TODO: add support for md5sums, sha1sums, sha256sums, sha224sums, sha384sums, sha512sums and b2sums
+
       if %.settings{"sha256sums"} {
         my $file = $.settings{"sha256sums"};
         for %repository{"assets"}.kv -> $i, %asset {
           if %asset{"name"} ~~ / <$file> / {
-            my $proc = Proc::Async.new: :w, "sha256sum", "--ignore-missing", "-c";
+            # The checksums file may include checksums for not-downloaded files
+            my Proc::Async $proc .= new: :w, "sha256sum", "--ignore-missing", "--check";
 
             react {
+              # Whenever the process was spawned...
               whenever $proc.ready {
                 log VERBOSE, "Checking sums...";
               }
+              # Whenever there was an error...
               whenever $proc.stderr {
                 log ERROR, "Error while checking sums: $_";
-                exit 1;
               }
+              # Whenever the process is done...
+              # (true, this can cause confusion)
               whenever $proc.start: cwd => $archive.IO.dirname {
                 log VERBOSE, "Archive matches its checksum!";
                 done;
               }
+              # Whenever we're done writting the fetched checksums
+              # to the standard output
+              # TODO: `browser_download_url` is GitHub dependent, this should be changed to support GitLab and others
               whenever $proc.write: get(%asset{"browser_download_url"}) {
                 $proc.close-stdin;
               }
@@ -43,7 +55,7 @@ package HubToDate::Verification {
       }
 
       if %.settings{"gpgkey"} {
-        # NYI
+        # Not Yet Implemented
       }
 
       $archive;
