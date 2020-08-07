@@ -6,7 +6,7 @@
 # appropriate folders, copies default rules
 # and sets adequate permissions
 
-zef install --/test .
+zef install --/test --force .
 mkdir -p /usr/share/hubtodate
 cp -n hubtodate/bin/hubtodate /usr/bin
 cp -rn hubtodate/rules /usr/share/hubtodate/rules

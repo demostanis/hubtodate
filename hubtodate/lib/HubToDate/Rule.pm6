@@ -67,7 +67,12 @@ package HubToDate::Rule {
 
       my \curr = ();
       for @steps.kv -> $i, &step {
-        curr = await step: curr;
+        my Promise attempt = step: curr;
+        attempt.then: { curr = .result; };
+
+        try $attempt.result;
+        attempt.cause andthen
+          log WARN, "Skipping to next rule: $_";
       }
     }
   }

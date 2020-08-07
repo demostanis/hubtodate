@@ -53,14 +53,14 @@ package HubToDate::Parse {
   }
 
   # In case the input is text...
-  multi sub parse(Str:D $text, Callable:D &error) is export {
+  multi sub parse(Str:D $text, &error) is export {
     Parser.parse($text,
       actions => Parser::Actions.new).made
       or error;
   }
 
   # ... and in case the input is a file
-  multi sub parse(IO::Path:D $file, Callable:D &error) is export {
+  multi sub parse(IO::Path:D $file, &error) is export {
     Parser.parse($file.slurp,
       actions => Parser::Actions.new).made
       or error;

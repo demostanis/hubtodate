@@ -6,7 +6,7 @@ use Colorizable;
 use WWW;
 
 package HubToDate::Release {
-  our $PKGS_DIR = $*config{"paths"}{"pkgs"} or "/usr/share/hubtodate/pkgs/";
+  our $PKGS_DIR = $*config{"paths"}{"pkgs"} // "/usr/share/hubtodate/pkgs/";
 
   class Release does Setting is export {
     our $name = "release";

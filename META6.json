@@ -19,6 +19,7 @@
     "HubToDate::Verification": "hubtodate/lib/HubToDate/Verification.pm6",
     "HubToDate::Options": "hubtodate/lib/HubToDate/Options.pm6",
     "HubToDate::GitHub": "hubtodate/lib/HubToDate/GitHub.pm6",
-    "HubToDate::GitLab": "hubtodate/lib/HubToDate/GitLab.pm6"
+    "HubToDate::GitLab": "hubtodate/lib/HubToDate/GitLab.pm6",
+    "HubToDate::Config": "hubtodate/lib/HubToDate/Config.pm6"
   }
 }
