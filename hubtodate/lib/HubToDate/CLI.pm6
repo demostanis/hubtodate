@@ -1,8 +1,9 @@
 use HubToDate::Rule;
 use HubToDate::Log;
+use HubToDate::Config;
 
 package HubToDate::CLI {
-  our @RULES_DIRS = </usr/share/hubtodate/rules/>;
+  our @RULES_DIRS = $*config{"paths"}{"rules"}, or </usr/share/hubtodate/rules/>;
 
   # The MAIN subroutine, which gets executed
   # when the `hubtodate` executable is ran
@@ -17,7 +18,7 @@ package HubToDate::CLI {
     # The program requires root, as it needs to access the root-owned
     # rules direcotry, and some software will require root to install
     # (if not, `root = no` in a rule file will drop privileges)
-    log ERROR, "This program does not work without root.") unless $*USER == 0;
+    log ERROR, "This program does not work without root." unless $*USER == 0;
 
     # The user can specify another custom rules directory
     @RULES_DIRS.prepend($rules-dir) if $rules-dir.defined;

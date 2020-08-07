@@ -5,7 +5,6 @@ package HubToDate::Options {
     our $name = "options";
 
     method process {
-      say %.settings;
     }
   }
 }

@@ -4,13 +4,15 @@ use WWW;
 
 package HubToDate::Verification {
   class Verification does Setting is export {
-    our Str $name = "verification"; # Field name
+    our $name = "verification"; # Field name
 
-    method check(@ (Str:D $archive where *.IO.f, Hash:D %repository)) --> Str:D {
+    method check(@ (Str:D $archive where *.IO.f, Hash:D %repository) --> Promise:D) {
       # In case sha256sums setting was specified,
       # download the checksums file and verify files
       # by spawning a `sha256sum` process
       # TODO: add support for md5sums, sha1sums, sha256sums, sha224sums, sha384sums, sha512sums and b2sums
+
+      my Promise $p .= new;
 
       if %.settings{"sha256sums"} {
         my $file = $.settings{"sha256sums"};
@@ -58,7 +60,7 @@ package HubToDate::Verification {
         # Not Yet Implemented
       }
 
-      $archive;
+      $p.keep: $archive;
     }
   }
 }

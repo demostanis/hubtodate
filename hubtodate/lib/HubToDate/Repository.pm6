@@ -5,12 +5,18 @@ use HubToDate::Log;
 
 package HubToDate::Repository {
   class Repository does Setting is export {
-    our Str $name = "repository";
+    our $name = "repository";
 
-    method fetch --> List:D {
+    method fetch returns Promise:D {
+      my Promise $p .= new;
+
       # Wherever we should fetch the release
       # TODO: Support GitLab and BitBucket (and others)
-      my $on = (%.settings{"on"} // "GitHub");
+      if %.settings{"on"} andthen .lc ∉ <github gitlab bitbucket> {
+        log WARN, "Wrong value for 'on', falling back to GitHub...";
+      }
+
+      my $on = (%.settings{"on"} // "github");
       my ($owner, $name) = %.settings{"owner", "name"};
 
       log VERBOSE, "Fetching $owner/$name on $on...";
@@ -22,7 +28,7 @@ package HubToDate::Repository {
         default { "HubToDate::GitHub"; }
       }
 
-      &::($way)::get-release(|@($owner, $name)), "$owner-$name";
+      $p.keep: &::($way)::get-release(|@($owner, $name)), "$owner-$name";
     }
   }
 }

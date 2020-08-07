@@ -8,7 +8,8 @@ package HubToDate::Setting {
     has ::("Rule") $.rule;
     has List:D @.available;
     has Hash:D %.settings;
-    has Str:D $.name;
+    has Str:D $.name
+      is required;
 
     submethod BUILD(
       :$!rule,

@@ -40,7 +40,7 @@ package HubToDate::Parse {
       make $<key>.Str => $<value>.defined ?? $<value>.made !! "";
     }
     # We are checking the value and transforming it
-    method value($m) {
+    method value(Match:D $m) {
       given $m.trim.lc {
         when / ^ \d+ $ / { $m.make: $m.Int } # Any integer
         when / ^ '...' $ / { $m.make: Nil } # Three dots means that there's no value
@@ -53,14 +53,16 @@ package HubToDate::Parse {
   }
 
   # In case the input is text...
-  multi sub parse(Str $text) is export {
+  multi sub parse(Str:D $text, Callable:D &error) is export {
     Parser.parse($text,
-      actions => Parser::Actions.new).made;
+      actions => Parser::Actions.new).made
+      or error;
   }
 
   # ... and in case the input is a file
-  multi sub parse(IO::Path $file) is export {
+  multi sub parse(IO::Path:D $file, Callable:D &error) is export {
     Parser.parse($file.slurp,
-      actions => Parser::Actions.new).made;
+      actions => Parser::Actions.new).made
+      or error;
   }
 }

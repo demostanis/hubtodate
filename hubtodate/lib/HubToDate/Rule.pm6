@@ -13,15 +13,15 @@ package HubToDate::Rule {
     #  - a verification field
     #  - an optional options field
 
-    has IO::Path:D $.file;
-    has Repository:D $!repository;
-    has Release:D $!release;
-    has Verification:D $!verification;
-    has Options:D $!options;
+    has IO::Path:D $.file is required;
+    has Repository:D $!repository is required;
+    has Release:D $!release is required;
+    has Verification:D $!verification is required;
+    has Options:D $!options is required;
 
     submethod BUILD(IO::Path:D :$!file where *.f) {
       log VERBOSE, "Parsing rule {$!file.basename}...";
-      my %contents = parse($!file);
+      my %contents = parse($!file, { log ERROR, "Failed to parse rule!"; });
 
       # In case those three fields are missing,
       # throw an error
@@ -57,16 +57,18 @@ package HubToDate::Rule {
       .verify for ($!repository, $!release, $!verification, $!options);
       # ... then, fetch => download => check => unpack => install
       # (more explained into their respective subroutines)
-      $!release.install(:$!options, folder =>
-        $!release.unpack(:$!options, archive =>
-          $!verification.check(:$!options, stuff =>
-            $!release.download(:$!options, stuff =>
-              $!repository.fetch(:$!options)))));
 
-      # This way is gross, it doesn't allow us to pass whenever
-      # a rule is disabled (or anything else not requiring to exit)
-      # We should instead try a way with promises: in case any of each
-      # returned by those subroutines isn't kept, head on to next rule
+      my @steps =
+        &$!repository.fetch,
+        &$!release.download,
+        &$!verification.check,
+        &$!release.unpack,
+        &$!release.install;
+
+      my \curr = ();
+      for @steps.kv -> $i, &step {
+        curr = await step: curr;
+      }
     }
   }
 }

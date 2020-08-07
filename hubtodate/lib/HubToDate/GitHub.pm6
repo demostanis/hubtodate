@@ -6,9 +6,9 @@ use HubToDate::Log;
 # without using this package
 
 package HubToDate::GitHub {
-  my $api-url = "https://api.github.com";
+  my Str $api-url = "https://api.github.com";
 
-  our sub get-release(Str $owner, Str $name) {
+  our sub get-release(Str:D $owner, Str:D $name) {
     jget("$api-url/repos/$owner/$name/releases/latest") orelse
       log ERROR, "Failed to fetch: $_";
   }
