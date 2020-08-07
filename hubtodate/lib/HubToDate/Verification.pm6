@@ -6,7 +6,7 @@ package HubToDate::Verification {
   class Verification does Setting is export {
     our $name = "verification"; # Field name
 
-    method check(@ (Str:D $archive where *.IO.f, Hash:D %repository) --> Promise:D) {
+    method check(@ (Str:D $archive where *.IO.f, %repository) --> Promise:D) {
       # In case sha256sums setting was specified,
       # download the checksums file and verify files
       # by spawning a `sha256sum` process
@@ -61,6 +61,7 @@ package HubToDate::Verification {
       }
 
       $p.keep: $archive;
+      $p;
     }
   }
 }

@@ -30,8 +30,13 @@ package HubToDate::Parse {
 
   class Parser::Actions {
     method TOP($/) {
-      my %hash = $<sections>».made;
-      make %hash;
+      # Return an empty hash in case there are no sections
+      if !$<sections>.elems {
+        make %(empty => True);
+      } else {
+        my %hash = $<sections>».made;
+        make %hash;
+      }
     }
     method sections($/) {
       make $<header><name>.Str => $<keyval>».made.hash;

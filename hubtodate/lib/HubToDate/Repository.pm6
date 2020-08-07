@@ -28,7 +28,8 @@ package HubToDate::Repository {
         default { "HubToDate::GitHub"; }
       }
 
-      $p.keep: &::($way)::get-release(|@($owner, $name)), "$owner-$name";
+      $p.keep(@(&::($way)::get-release(|@($owner, $name)), "$owner-$name"));
+      $p;
     }
   }
 }

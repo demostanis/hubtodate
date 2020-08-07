@@ -3,7 +3,7 @@ use HubToDate::Log;
 use HubToDate::Config;
 
 package HubToDate::CLI {
-  our @RULES_DIRS = $*config{"paths"}{"rules"}, or </usr/share/hubtodate/rules/>;
+  our @RULES_DIRS = [%config{"paths"}{"rules"} or "/usr/share/hubtodate/rules/"];
 
   # The MAIN subroutine, which gets executed
   # when the `hubtodate` executable is ran
@@ -32,7 +32,7 @@ package HubToDate::CLI {
       # Check if the folder's permissions aren't restrictive enough
       # It checks the two last digits (same group and others permissions)
       # whetever they are greater than 4 (more than readable)
-      if $rule-dir.IO.mode.comb[3..4].any > 4 {
+      if $rule-dir.IO.mode.comb[2..3].any > 4 {
         log WARN, "Insecure permissions found for $rule-dir, this may be a security risk";
       }
 

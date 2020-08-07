@@ -6,12 +6,12 @@ use Colorizable;
 use WWW;
 
 package HubToDate::Release {
-  our $PKGS_DIR = $*config{"paths"}{"pkgs"} // "/usr/share/hubtodate/pkgs/";
+  our $PKGS_DIR = %config{"paths"}{"pkgs"} // "/usr/share/hubtodate/pkgs/";
 
   class Release does Setting is export {
     our $name = "release";
 
-    method download(@ (Hash:D %repository, Str:D $to) --> Promise:D) {
+    method download(@ (%repository, Str:D $to) --> Promise:D) {
       my Promise $p .= new;
 
       my $match = $.settings{"match"};
@@ -50,8 +50,9 @@ package HubToDate::Release {
           }
 
           log VERBOSE, "Done!";
-          $p.keep: "$PKGS_DIR/$to/%repository{'tag_name'}/%asset{'name'}",
-                  %repository;
+          $p.keep(@("$PKGS_DIR/$to/%repository{'tag_name'}/%asset{'name'}",
+                  %repository));
+          return $p;
         } elsif $i == %repository{"assets"}.elems - 1 {
           # In case we've finished looping through all assets
           # and that none matched user-provided regex, show
@@ -62,7 +63,7 @@ package HubToDate::Release {
       }
     }
 
-    method unpack(Str:D :$archive where *.IO.f --> Promise:D) {
+    method unpack(Str:D $archive where *.IO.f --> Promise:D) {
       my Promise $p .= new;
 
       if %.settings{"unpack"}.defined && %.settings{"unpack"} ne "..." {
@@ -77,9 +78,10 @@ package HubToDate::Release {
       }
 
       $p.keep: $archive.IO.dirname;
+      $p;
     }
 
-    method install(Str:D :$folder where *.IO.d --> Promise:D) {
+    method install(Str:D $folder where *.IO.d --> Promise:D) {
       # We install the software using user-provided's command.
       # We perhaps should refuse if the directory folder has
       # unrestrictive permissions? Or check if standard output
@@ -99,6 +101,7 @@ package HubToDate::Release {
       log VERBOSE, "Done!";
 
       $p.keep;
+      $p;
     }
   }
 }

@@ -1,15 +1,14 @@
 # We aren't importing HubToDate::Rule here,
 # else it would throw errors. That's why we
-# use the ::('Rule')
+# use the ::('Rule') (Nevermind, it's glitching)
 use HubToDate::Log;
 
 package HubToDate::Setting {
   role Setting is export {
-    has ::("Rule") $.rule;
-    has List:D @.available;
-    has Hash:D %.settings;
-    has Str:D $.name
-      is required;
+    has #`(  ::("Rule")  ) $.rule;
+    has Str:D @.available;
+    has Any %.settings;
+    has $.name;
 
     submethod BUILD(
       :$!rule,

@@ -59,20 +59,18 @@ package HubToDate::Rule {
       # (more explained into their respective subroutines)
 
       my @steps =
-        &$!repository.fetch,
-        &$!release.download,
-        &$!verification.check,
-        &$!release.unpack,
-        &$!release.install;
+        @($!repository, "fetch"),
+        @($!release, "download"),
+        @($!verification, "check"),
+        @($!release, "unpack"),
+        @($!release, "install");
 
-      my \curr = ();
-      for @steps.kv -> $i, &step {
-        my Promise attempt = step: curr;
-        attempt.then: { curr = .result; };
+      my $curr = ();
 
-        try $attempt.result;
-        attempt.cause andthen
-          log WARN, "Skipping to next rule: $_";
+      for @steps -> ($setting, $step) {
+        my &method = $setting.^find_method($step);
+        my Promise $attempt = $curr ?? method($setting, $curr) !! method($setting);
+        $curr = await $attempt;
       }
     }
   }
