@@ -1,0 +1,17 @@
+; A rule to install HubToDate itself
+
+[repository]
+owner = demostanis
+name = hubtodate
+
+[release]
+match = hubtodate.tar.gz
+unpack = tar xzf <archive>
+install = zef install --/test --force . && \
+  mv hubtodate/bin/hubtodate /usr/bin
+root = yes
+
+; We don't have sums checking nor
+; GPG verification for now
+[verification]
+sha256sums = ...
