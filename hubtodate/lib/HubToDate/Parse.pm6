@@ -25,7 +25,7 @@ package HubToDate::Parse {
     regex normal-value { <-[#;\n\\]> }
 
     # Any amount of newlines and comments (; or #)
-    token eol { [ <[\h]>* <[;#]> \N* ] \n+ }
+    token eol { [ <[\h]>* <[;#]> \N* ]* \n+ }
   }
 
   class Parser::Actions {

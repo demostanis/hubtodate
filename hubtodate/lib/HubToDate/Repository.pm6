@@ -33,7 +33,7 @@ package HubToDate::Repository {
 
       my $to = "$owner-$name";
       my %release = &::($way)::get-release(|@($owner, $name));
-      if %release{"tag_name"} eq "$PKGS_DIR/$to/lastrelease".IO.slurp {
+      if %release{"tag_name"} eq ("$PKGS_DIR/$to/lastrelease".IO.slurp // "") {
         $p.break: "Repository is up-to-date, no need to update";
       } else {
         $p.keep(@(%release, $to));
