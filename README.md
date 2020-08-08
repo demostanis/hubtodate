@@ -1,5 +1,4 @@
 # HubToDate
-### Automatically fetches and updates repositories from GitHub
 
 ## What does it do?
 This software basically fetches and updates repositories from GitHub
