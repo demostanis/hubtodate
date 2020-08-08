@@ -17,5 +17,5 @@ package HubToDate::Log {
 
   multi log(VERBOSE;; Str:D --> List) { green, " ==> " }
   multi log(WARN;; Str:D --> List) { yellow, " [!] " }
-  multi log(ERROR;; Str:D --> List) { red, " [!!!] ", &die } # We should always die on error
+  multi log(ERROR;; Str:D --> List) { red, " [!!!] ", sub { exit 1 } } # We should always exit on error
 }

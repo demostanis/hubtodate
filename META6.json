@@ -1,12 +1,18 @@
 {
   "name": "hubtodate",
-  "version": "0.2",
+  "version": "0.3",
+  "auth": "github:demostanis",
   "description": "Automatically fetches and updates repositories from GitHub",
   "depends": [
     "Colorizable",
-    "UNIX::Privileges",
     "WWW"
   ],
+  "source-url": "https://github.com/demostanis/hubtodate",
+  "support": {
+    "source": "https://github.com/demostanis/hubtodate.git",
+    "bugtracker": "https://github.com/demostanis/hubtodate/issues"
+  },
+  "license": "BSD-3-Clause",
   "author": "demostanis",
   "provides": {
     "HubToDate::CLI": "hubtodate/lib/HubToDate/CLI.pm6",

@@ -1,4 +1,3 @@
-use UNIX::Privileges :ALL;
 use HubToDate::Config;
 use HubToDate::Setting;
 use HubToDate::Log;
@@ -73,7 +72,7 @@ package HubToDate::Release {
         my $proc = shell "{S/'<archive>'/$archive/ with $.settings{'unpack'}}",
           cwd => $archive.IO.dirname;
 
-        log ERROR, "An error occured while trying to unpack archive: $proc.err" if $proc.exitcode;
+        log ERROR, "An error occured while trying to unpack archive..." if $proc.exitcode;
         log VERBOSE, "Done!";
       }
 
@@ -94,10 +93,19 @@ package HubToDate::Release {
       log VERBOSE, "Installing using command: ";
       say .white with "      %.settings{'install'}" but Colorizable;
 
-      my $proc = shell $.settings{'install'},
+      # Run command as `nobody` user in case root is set
+      # to a negative value. I should improve this, sometimes
+      # commands without root may fail because of the single
+      # quotes
+      my $installer = %.settings{"install"};
+      my $install-command = not (%.settings{"root"} // True)
+        ?? "su nobody -s/bin/sh -c '{$installer}'"
+        !! $installer;
+
+      my $proc = shell $install-command,
         cwd => $folder;
 
-      log ERROR, "An error occured while trying to install: $proc.err" if $proc.exitcode;
+      log ERROR, "An error occured while trying to install..." if $proc.exitcode;
       log VERBOSE, "Done!";
 
       $p.keep;

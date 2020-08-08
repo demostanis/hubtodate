@@ -35,5 +35,5 @@ open one if you have any problem.
 ## You suck at coding
 I am new to Raku, and still in a learning phase.
 
-#### Licensed under 4-clause BSD, as you can see in LICENSE
+#### Licensed under BSD-3-Clause, as you can see in LICENSE
 #### Copyright 2020, demostanis worlds

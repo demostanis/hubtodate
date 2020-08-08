@@ -67,6 +67,9 @@ package HubToDate::Rule {
 
       my $curr = ();
 
+      # For each step, call the method with the
+      # last call's return value (e.g. if "download"
+      # return 42, "check" will be called with 42)
       for @steps -> ($setting, $step) {
         my &method = $setting.^find_method($step);
         my Promise $attempt = $curr ?? method($setting, $curr) !! method($setting);
