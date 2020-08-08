@@ -33,7 +33,6 @@ package HubToDate::Release {
           "$PKGS_DIR/$to/lastrelease".IO.spurt: %repository{'tag_name'};
           # TODO: Check using this file if the repository should really be updated
 
-          # To get a motherfucking progress bar
           if $supports-wget {
             # This piece of code isn't prone to shell escape attacks,
             # `run` will execute `wget` executable, not a shell
@@ -84,7 +83,7 @@ package HubToDate::Release {
       # We install the software using user-provided's command.
       # We perhaps should refuse if the directory folder has
       # unrestrictive permissions? Or check if standard output
-      # is a tty, inform the user permissions suck so that he
+      # is a tty, inform the user permissions are low so that he
       # has the time to cancel, and the opposite in case it's
       # not a tty? (e.g. inside a crontab)
 
