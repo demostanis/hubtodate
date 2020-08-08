@@ -28,6 +28,9 @@ open one if you have any problem.
 ## Your code isn't that good
 I am new to Raku, and still in a learning phase.
 
+## Warning
+This software is still in BETA. Beware when using!
+
 ## License
 **HubToDate** is licensed under **BSD-3-Clause**.
 Take a look at `LICENSE` file.
