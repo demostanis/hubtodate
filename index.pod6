@@ -1,0 +1,8 @@
+=begin pod
+
+=head1 HubToDate
+
+Welcome to HubToDate's website. It still is a work in progress.
+You may find more information on the L<GitHub repository|https://github.com/demostanis/hubtodate>.
+
+=end pod
