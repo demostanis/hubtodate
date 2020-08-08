@@ -1,6 +1,6 @@
 {
   "name": "hubtodate",
-  "version": "0.3",
+  "version": "0.4",
   "auth": "github:demostanis",
   "description": "Automatically fetches and updates repositories from GitHub",
   "depends": [
