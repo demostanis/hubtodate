@@ -8,7 +8,7 @@ name = hubtodate
 match = hubtodate.tar.gz
 unpack = tar xzf <archive>
 install = zef install --/test --force . && \
-  mv hubtodate/bin/hubtodate /usr/bin
+  mv -f hubtodate/bin/hubtodate /usr/bin
 root = yes
 
 ; We don't have sums checking nor

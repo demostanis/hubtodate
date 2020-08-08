@@ -97,9 +97,9 @@ package HubToDate::Release {
       # commands without root may fail because of the single
       # quotes
       my $installer = %.settings{"install"};
-      my $install-command = not (%.settings{"root"} // True)
-        ?? "su nobody -s/bin/sh -c '{$installer}'"
-        !! $installer;
+      my $install-command = (%.settings{"root"} // True)
+        ?? $installer
+        !! "su nobody -s/bin/sh -c '{$installer}'";
 
       my $proc = shell $install-command,
         cwd => $folder;
