@@ -74,6 +74,15 @@ package HubToDate::Rule {
         my &method = $setting.^find_method($step);
         my Promise $attempt = $curr ?? method($setting, $curr) !! method($setting);
         $curr = await $attempt;
+
+        CATCH {
+          # An undocummented feature to
+          # handle broken awaited promises
+          when X::Await::Died {
+            log WARN, .message;
+            last;
+          }
+        }
       }
     }
   }

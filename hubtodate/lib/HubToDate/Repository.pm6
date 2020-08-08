@@ -1,9 +1,12 @@
 use HubToDate::Setting;
+use HubToDate::Config;
 use HubToDate::GitHub;
 use HubToDate::GitLab;
 use HubToDate::Log;
 
 package HubToDate::Repository {
+  our $PKGS_DIR = %config{"paths"}{"pkgs"} // "/usr/share/hubtodate/pkgs/";
+
   class Repository does Setting is export {
     our $name = "repository";
 
@@ -28,7 +31,13 @@ package HubToDate::Repository {
         default { "HubToDate::GitHub"; }
       }
 
-      $p.keep(@(&::($way)::get-release(|@($owner, $name)), "$owner-$name"));
+      my $to = "$owner-$name";
+      my %release = &::($way)::get-release(|@($owner, $name));
+      if %release{"tag_name"} eq "$PKGS_DIR/$to/lastrelease".IO.slurp {
+        $p.break: "Repository is up-to-date, no need to update";
+      } else {
+        $p.keep(@(%release, $to));
+      }
       $p;
     }
   }
