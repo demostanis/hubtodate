@@ -9,13 +9,23 @@ package HubToDate::Log {
   # We here log the message concatenated with the
   # chosen prefix, and we call &action if it is defined
   proto log(Level:D $level, Str:D $message) is export {
-    my ($color, $prefix, &action) = {*};
-    say .colorize: :fg($color), :mo(bold)
-      with $prefix ~ $message but Colorizable;
+    my ($color, $prefix, &action, &using is default(&say)) = {*};
+    say &using;
+    if $*OUT.t {
+      using .colorize: :fg($color), :mo(bold)
+        with $prefix ~ $message but Colorizable;
+    } else {
+      # Don't colorize nor prefix
+      # message if standard output
+      # is not a TTY
+      using $message;
+    }
     action if &action.defined;
   }
 
   multi log(VERBOSE;; Str:D --> List) { green, " ==> " }
   multi log(WARN;; Str:D --> List) { yellow, " [!] " }
-  multi log(ERROR;; Str:D --> List) { red, " [!!!] ", sub { exit 1 } } # We should always exit on error
+  multi log(ERROR;; Str:D --> List) { red, " [!!!] ",
+    sub { exit 1 }, &note } # We should always exit on error
+                            # and print to standard error
 }
