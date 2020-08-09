@@ -10,6 +10,6 @@ You may find more information in the L<GitHub repository|https://github.com/demo
 =item L<Creating your own rules|/d/Creating your own rules.md>
 =item L<The configuration file|/d/The configuration file.md>
 =item L<Using the CLI|/d/Using the CLI.md>
-=item L<Stuff to do|/d/Stuff to do.html>
+=item L<Stuff to do|/d/Stuff to do.md>
 
 =end pod
