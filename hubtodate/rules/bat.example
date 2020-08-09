@@ -13,7 +13,7 @@ name = bat
 [release]
 match = 'bat_' (\d+'.'?)+ '_amd64.deb' ; Regular expression to match a new release
                                        ; Note that this is a Raku one, and that you
-                                       ; mustn't surround it with backslashes
+                                       ; mustn't surround it with slashes
 
 unpack = ... ; Command to execute in order to unpack
              ; the newly downloaded archive, such as
@@ -24,7 +24,7 @@ install = dpkg -i *.deb && \    ; Command to install the package
     echo "bat was installed!!!" ; Here we use dpkg, the Debian's
                                 ; package manager
 
-root = yes ; Whetever or not root is required
+root = yes ; Whetever root is required or not
 
 
 ; Settings for checksum verification
