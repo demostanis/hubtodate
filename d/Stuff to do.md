@@ -1,18 +1,3 @@
-TITLE
-=====
-
-Creating your own rules
-
-SUBTITLE
-========
-
-A tutorial on how to create your own rules
-
-LASTEDIT
-========
-
-August 09, 2020
-
 Stuff to do
 ===========
 

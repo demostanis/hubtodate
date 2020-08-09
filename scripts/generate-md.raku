@@ -3,7 +3,7 @@
 use Pod::To::Markdown;
 
 # In case it doesn't exist
-mkdir "dist";
+mkdir "d";
 
 for run(<find -name *.pod6>, :out).out.lines {
   my $file = .IO;
@@ -13,7 +13,7 @@ for run(<find -name *.pod6>, :out).out.lines {
     .Str;
   my $dist = $filename eq "index"
     ?? "$filename.md"
-    !! "dist/$filename.md";
+    !! "d/$filename.md";
 
   say "Processing file $file...";
 
