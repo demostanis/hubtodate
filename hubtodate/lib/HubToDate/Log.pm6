@@ -10,7 +10,6 @@ package HubToDate::Log {
   # chosen prefix, and we call &action if it is defined
   proto log(Level:D $level, Str:D $message) is export {
     my ($color, $prefix, &action, &using is default(&say)) = {*};
-    say &using;
     if $*OUT.t {
       using .colorize: :fg($color), :mo(bold)
         with $prefix ~ $message but Colorizable;

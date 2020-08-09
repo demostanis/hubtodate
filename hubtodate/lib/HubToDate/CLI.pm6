@@ -47,4 +47,16 @@ package HubToDate::CLI {
       }
     }
   }
+
+  # Prints version using
+  # zef package manager
+  multi MAIN(
+    "version"
+  ) {
+    my $proc = shell "zef list --installed 2>/dev/null | grep hubtodate", :out;
+    my $line = $proc.out.lines.first: :end;
+
+    $line ~~ / 'ver<' (\d+ % '.') '>' /;
+    say "This is HubToDate version " ~ $0;
+  }
 }

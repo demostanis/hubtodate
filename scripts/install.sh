@@ -12,5 +12,5 @@ cp hubtodate/bin/hubtodate /usr/bin
 cp -rn hubtodate/rules /usr/share/hubtodate/rules
 cp -n hubtodate/etc/hubtodate.conf /etc
 chmod 600 -R /usr/share/hubtodate
-chmod 600 /etc/hubtodate.conf
+chmod 644 /etc/hubtodate.conf
 hubtodate
