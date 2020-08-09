@@ -14,4 +14,4 @@ root = yes
 ; We don't have sums checking nor
 ; GPG verification for now
 [verification]
-sha256sums = ...
+sha256sums = sha256sums.txt
