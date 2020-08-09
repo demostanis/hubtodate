@@ -13,7 +13,16 @@ OR to use **HubToDate**.
 
 ## How can it be installed?
 Make sure you have **Rakudo** and **Zef** installed.
-There's an installer in `./scripts/install.sh`, which needs to be run as `root`.
+There's an installer in `./scripts/install.sh`, which needs to be run as `root`:
+```sh
+git clone https://github.com/demostanis/hubtodate.git /tmp/hubtodate && \
+  cd /tmp/hubtodate && \
+  sudo sh ./scripts/install.sh && \
+  cd - >/dev/null && \
+  rm -rf /tmp/hubtodate
+```
+(Note: For this script to run correctly, `git` and `curl` are required, as well as
+not having `/tmp` mounted with `noexec`)
 Otherwise, you can add `./hubtodate/bin` to your `$PATH`, and write some rules inside
 `/usr/share/hubtodate/rules`. It can also run inside Docker for testing purposes, which
 is pretty useless for a normal user.
@@ -30,6 +39,7 @@ I am new to Raku, and still in a learning phase.
 
 ## Warning
 This software is still in BETA. Beware when using!
+Also, it only has been tested on Linux.
 
 ## License
 **HubToDate** is licensed under **BSD-3-Clause**.
