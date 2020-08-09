@@ -7,9 +7,9 @@ You may find more information in the L<GitHub repository|https://github.com/demo
 
 =head2 Index of unfinished documentation
 
-L<Creating your own rules|/html/Creating your own rules.html>
-L<The configuration file|/html/The configuration file.html>
-L<Using the CLI|/html/Using the CLI.html>
-L<Stuff to do|/html/Stuff to do.html>
+=item L<Creating your own rules|/dist/Creating your own rules.md>
+=item L<The configuration file|/dist/The configuration file.md>
+=item L<Using the CLI|/dist/Using the CLI.md>
+=item L<Stuff to do|/dist/Stuff to do.html>
 
 =end pod
