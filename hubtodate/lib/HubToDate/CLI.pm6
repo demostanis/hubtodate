@@ -13,7 +13,6 @@ package HubToDate::CLI {
   # without updating?)
   multi MAIN(
     Str :$rules-dir?,    #= Specify a custom rules directory
-    Bool :$no-warnings?  #= Disable any warning
   ) is export {
     # The program requires root, as it needs to access the root-owned
     # rules direcotry, and some software will require root to install
