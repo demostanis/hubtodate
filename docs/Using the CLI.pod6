@@ -1,9 +1,5 @@
 =begin pod
 
-=TITLE Creating your own rules
-=SUBTITLE A tutorial on how to create your own rules
-=LASTEDIT August 09, 2020
-
 =head1 Using the CLI
 
 To run HubToDate, you need to run C<hubtodate>

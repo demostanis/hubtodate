@@ -1,9 +1,5 @@
 =begin pod
 
-=TITLE Creating your own rules
-=SUBTITLE A tutorial on how to create your own rules
-=LASTEDIT August 09, 2020
-
 =head1 Stuff to do
 
 Whetever features be missing or bugs

@@ -1,9 +1,5 @@
 =begin pod
 
-=TITLE Creating your own rules
-=SUBTITLE A tutorial on how to create your own rules
-=LASTEDIT August 09, 2020
-
 =head1 Creating your own rules
 
 A rule doesn't yet exist for a repository?
