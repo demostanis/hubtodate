@@ -12,4 +12,4 @@ Index of unfinished documentation
 
   * [Using the CLI](/d/Using the CLI.md)
 
-  * [Stuff to do](/d/Stuff to do.html)
+  * [Stuff to do](/d/Stuff to do.md)
