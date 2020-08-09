@@ -6,10 +6,10 @@ Welcome to HubToDate's website. It still is a work in progress. You may find mor
 Index of unfinished documentation
 ---------------------------------
 
-  * [Creating your own rules](/dist/Creating your own rules.md)
+  * [Creating your own rules](/d/Creating your own rules.md)
 
-  * [The configuration file](/dist/The configuration file.md)
+  * [The configuration file](/d/The configuration file.md)
 
-  * [Using the CLI](/dist/Using the CLI.md)
+  * [Using the CLI](/d/Using the CLI.md)
 
-  * [Stuff to do](/dist/Stuff to do.html)
+  * [Stuff to do](/d/Stuff to do.html)
