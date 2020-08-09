@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>{{ title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content=" | HubToDate">
+    <meta name="description" content="{{subtitle}} | HubToDate">
     <style type="text/css">
-      body {}
-
+      {{css}}
     </style>
 
+    {{#code}}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/solarized-dark.min.css"
       />
+    {{/code}}
   </head>
   <body>
+    {{#code}}
       <script
         src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"
         async
@@ -27,10 +29,11 @@
           });
         });
       </script>
+    {{/code}}
 
     <div id="___top"></div>
-      <h1 id="HubToDate"><a class="u" href="#___top" title="go to top of document">HubToDate</a></h1>
-<p>Welcome to HubToDate&#39;s website. It still is a work in progress. You may find more information in the <a href="https://github.com/demostanis/hubtodate">GitHub repository</a>.</p>
-
+    {{#body}}
+      {{{ . }}}
+    {{/body}}
   </body>
 </html>
