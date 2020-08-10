@@ -9,7 +9,7 @@ package HubToDate::Log {
   # We here log the message concatenated with the
   # chosen prefix, and we call &action if it is defined
   proto log(Level:D $level, Str:D $message) is export {
-    my ($color, $prefix, &action, &using is default(&say)) = {*};
+    (my $color, my $prefix, my &action, my &using is default(&say)) = {*};
     if $*OUT.t {
       using .colorize: :fg($color), :mo(bold)
         with $prefix ~ $message but Colorizable;

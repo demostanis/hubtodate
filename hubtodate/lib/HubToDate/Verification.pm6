@@ -10,21 +10,26 @@ package HubToDate::Verification {
       # In case sha256sums setting was specified,
       # download the checksums file and verify files
       # by spawning a `sha256sum` process
-      # TODO: add support for md5sums, sha1sums, sha256sums, sha224sums, sha384sums, sha512sums and b2sums
 
       my Promise $p .= new;
 
-      if %.settings{"sha256sums"} {
-        my $file = $.settings{"sha256sums"};
+      if my $method = %.settings.first(*.key eq "md5sums"|
+                                                  "sha1sums"|
+                                                  "sha224sums"|
+                                                  "sha256sums"|
+                                                  "sha386sums"|
+                                                  "sha512sums"|
+                                                  "b2sums") {
+        my $file = $method.value;
         for %repository{"assets"}.kv -> $i, %asset {
           if %asset{"name"} ~~ / <$file> / {
             # The checksums file may include checksums for not-downloaded files
-            my Proc::Async $proc .= new: :w, "sha256sum", "--ignore-missing", "--check";
+            my Proc::Async $proc .= new: :w, $method.key.substr(0, *-1), "--ignore-missing", "--check";
 
             react {
               # Whenever the process was spawned...
               whenever $proc.ready {
-                log VERBOSE, "Checking sums...";
+                log VERBOSE, "Checking {$method.key}...";
               }
               # Whenever there was an error...
               whenever $proc.stderr {
@@ -52,6 +57,7 @@ package HubToDate::Verification {
 
         # TODO: add support for BSDs
         # which don't have sha256sum
+        # (it has another name)
       } else {
         log WARN, "Not verifying checksums, archive could be corrupted!";
       }
