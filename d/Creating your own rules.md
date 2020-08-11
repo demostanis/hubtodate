@@ -81,21 +81,40 @@ The release field describes how to find right release, (archive to install the s
 
   * root - Whetever the install command should be run as root. If not, it is run as "nobody" user.
 
-To match the right archive: if its name is constant between releases (e.g. software-amd64.deb), you may just set this value to it. If, however, its name may change (e.g. software-1.1.1.deb), you will need to use a regex. An example to match a version: 'software-' \d+ % \. '.deb' should match "software-1.0.deb", "software-14.0.22.deb", etc. For the unpack value, "<archive>" is automatically replaced by the downloaded archive.
+To match the right archive: if its name is constant between releases (e.g. software-amd64.deb), you may just set this value to it. If, however, its name may change (e.g. software-1.1.1.deb), you will need to use a regex. An example to match a version: `'software-' \d+ % \. '.deb'` should match "software-1.0.deb", "software-14.0.22.deb", etc. For the unpack value, `archive` is automatically replaced by the downloaded archive.
 
 The [verification] field
 ------------------------
 
-The verification field tells how to verify archive using a checksum, or with GPG. (no support yet)] Currently supported algorithms are: (depending whetever your OS supports <algorithm>sum command, which should be included in GNU coreutils) - md5 - sha1 - sha224 - sha256 - sha386 - sha512 - b2
+The verification field tells how to verify archive using a checksum, or with GPG. (no support yet) Currently supported algorithms are: (depending whetever your OS supports <algorithm>sum command, which should be included in GNU coreutils)
+
+  * md5
+
+  * sha1
+
+  * sha224
+
+  * sha256
+
+  * sha386
+
+  * sha512
+
+  * b2
 
 Its value must be the filename where the checksums are. For example:
 
     [verification]
     b2sums = b2sums.txt
 
-Should fetch b2sums.txt file from the releases page, and run b2sum --check with its contents.
+Should fetch b2sums.txt file from the releases page, and run `b2sum --check` with its contents.
 
 The [options] field
 -------------------
 
 The options field changes HubToDate's behavior. There are currently no options as of now.
+
+Examples
+--------
+
+You may find examples in the [GitHub repository](https://github.com/demostanis/hubtodate/tree/master/hubtodate/rules).
