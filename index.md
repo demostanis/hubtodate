@@ -1,7 +1,9 @@
 HubToDate
 =========
 
-Welcome to HubToDate's website. It still is a work in progress. You may find more information in the [GitHub repository](https://github.com/demostanis/hubtodate).
+Welcome to **HubToDate's website**. It still is a work in progress. It basically fetches and updates repositories from GitHub with the help of user pre-defined rules stored in `/usr/share/hubtodate/rules`.
+
+If you want to check the source code, [it is hosted on GitHub](https://github.com/demostanis/hubtodate). There is also a nice README explaining *why* you probably should use HubToDate. This website focuses on *how* to use it.
 
 Index of unfinished documentation
 ---------------------------------

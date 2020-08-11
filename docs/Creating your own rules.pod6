@@ -68,4 +68,68 @@ after a value:
   # This is a comment
   key = value ; This is ignored!
 
+=head2 The [repository] field
+
+The repository field may contain up to three values:
+
+=item on - I<(optional)> Tells where the repository should be fetched from. (e.g. GitHub)
+=item owner - Person who owns the repository. (e.g. demostanis)
+=item name - Name of the repository. (e.g. hubtodate)
+
+Meaning that this is valid:
+
+  [repository]
+  owner = ogham
+  name = exa
+
+However, this is not:
+
+  [repository]
+  on = gitlab
+  name = exa
+
+Because, as of now, HubToDate doesn't search for repositories.
+You must explicitly tell who created the repository and how it is called.
+
+=head2 The [release] field
+
+The release field describes how to find right release, (archive to install the software)
+unpack it if needed, and install it. It may contain these values:
+
+=item match - A Raku regex to find the right archive. (e.g. hubtodate.tar.gz)
+=item unpack - A shell command to unpack the archive. (e.g. tar xf <archive>)
+=item install - A shell command to install the software. (e.g. pacman -U hubtodate.tar.gz)
+=item root - Whetever the install command should be run as root. If not, it is run as "nobody" user.
+
+To match the right archive: if its name is constant between releases (e.g. software-amd64.deb),
+you may just set this value to it. If, however, its name may change (e.g. software-1.1.1.deb),
+you will need to use a regex. An example to match a version: 'software-' \d+ % \. '.deb'
+should match "software-1.0.deb", "software-14.0.22.deb", etc.
+For the unpack value, "<archive>" is automatically replaced by the downloaded archive.
+
+=head2 The [verification] field
+
+The verification field tells how to verify archive using a checksum, or with GPG. (no support yet)]
+Currently supported algorithms are: (depending whetever your OS supports <algorithm>sum command,
+which should be included in GNU coreutils)
+- md5
+- sha1
+- sha224
+- sha256
+- sha386
+- sha512
+- b2
+
+Its value must be the filename where the checksums are.
+For example:
+
+  [verification]
+  b2sums = b2sums.txt
+
+Should fetch b2sums.txt file from the releases page, and run b2sum --check with its contents.
+
+=head2 The [options] field
+
+The options field changes HubToDate's behavior. There are currently no options as of now.
+
 =end pod
