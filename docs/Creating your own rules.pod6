@@ -105,12 +105,12 @@ To match the right archive: if its name is constant between releases (e.g. softw
 you may just set this value to it. If, however, its name may change (e.g. software-1.1.1.deb),
 you will need to use a regex. An example to match a version: C<'software-' \d+ % \. '.deb'>
 should match "software-1.0.deb", "software-14.0.22.deb", etc.
-For the unpack value, C< \<archive\> > is automatically replaced by the downloaded archive.
+For the unpack value, C<archive> (between <>) is automatically replaced by the downloaded archive.
 
 =head2 The [verification] field
 
 The verification field tells how to verify archive using a checksum, or with GPG. (no support yet)
-Currently supported algorithms are: (depending whetever your OS supports C< \<algorithm\>sum > command,
+Currently supported algorithms are: (depending whetever your OS supports C<I<algorithm>sum> command,
 which should be included in GNU coreutils)
 =item md5
 =item sha1
