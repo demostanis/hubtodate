@@ -4,6 +4,7 @@
 This software basically fetches and updates repositories from GitHub
 with the help of user pre-defined rules (or example ones in `./hubtodate/rules`)
 stored in `/usr/share/hubtodate`. It is written in Raku.
+We also have a [website](https://hubtodate.mooo.com/).
 
 ## Why would I want that? I use Arch and with AUR... *bla bla bla*
 Many distributions lack some software which can be found on GitHub, most of
