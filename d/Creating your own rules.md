@@ -86,7 +86,7 @@ To match the right archive: if its name is constant between releases (e.g. softw
 The [verification] field
 ------------------------
 
-The verification field tells how to verify archive using a checksum, or with GPG. (no support yet) Currently supported algorithms are: (depending whetever your OS supports `I<algorithm>sum` command, which should be included in GNU coreutils)
+The verification field tells how to verify archive using a checksum, or with GPG. (no support yet) Currently supported algorithms are: (depending whetever your OS supports *algorithm*sum command, which should be included in GNU coreutils)
 
   * md5
 
