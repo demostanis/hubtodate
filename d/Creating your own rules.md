@@ -81,12 +81,12 @@ The release field describes how to find right release, (archive to install the s
 
   * root - Whetever the install command should be run as root. If not, it is run as "nobody" user.
 
-To match the right archive: if its name is constant between releases (e.g. software-amd64.deb), you may just set this value to it. If, however, its name may change (e.g. software-1.1.1.deb), you will need to use a regex. An example to match a version: `'software-' \d+ % \. '.deb'` should match "software-1.0.deb", "software-14.0.22.deb", etc. For the unpack value, `archive` is automatically replaced by the downloaded archive.
+To match the right archive: if its name is constant between releases (e.g. software-amd64.deb), you may just set this value to it. If, however, its name may change (e.g. software-1.1.1.deb), you will need to use a regex. An example to match a version: `'software-' \d+ % \. '.deb'` should match "software-1.0.deb", "software-14.0.22.deb", etc. For the unpack value, `<archive> ` is automatically replaced by the downloaded archive.
 
 The [verification] field
 ------------------------
 
-The verification field tells how to verify archive using a checksum, or with GPG. (no support yet) Currently supported algorithms are: (depending whetever your OS supports <algorithm>sum command, which should be included in GNU coreutils)
+The verification field tells how to verify archive using a checksum, or with GPG. (no support yet) Currently supported algorithms are: (depending whetever your OS supports `<algorithm>sum ` command, which should be included in GNU coreutils)
 
   * md5
 
