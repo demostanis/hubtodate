@@ -132,4 +132,8 @@ Should fetch b2sums.txt file from the releases page, and run C<b2sum --check> wi
 
 The options field changes HubToDate's behavior. There are currently no options as of now.
 
+=head2 Examples
+
+You may find examples in the L<GitHub repository|https://github.com/demostanis/hubtodate/tree/master/hubtodate/rules>.
+
 =end pod
