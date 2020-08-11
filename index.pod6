@@ -3,12 +3,14 @@
 =head1 HubToDate
 
 Welcome to B<HubToDate's website>. It still is a work in progress.
+
+Many distributions lack some software which can be found on GitHub, most of the time because they are not popular enough.
+You have the choice to install the binaries at the risk of keeping outdated software on your computer... OR to use B<HubToDate>.
+
 It basically fetches and updates repositories from GitHub with the help of
 user pre-defined rules stored in C</usr/share/hubtodate/rules>.
 
 If you want to check the source code, L<it is hosted on GitHub|https://github.com/demostanis/hubtodate>.
-There is also a nice README explaining I<why> you probably should use HubToDate.
-This website focuses on I<how> to use it.
 
 =head2 Index of unfinished documentation
 

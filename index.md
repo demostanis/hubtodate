@@ -1,9 +1,13 @@
 HubToDate
 =========
 
-Welcome to **HubToDate's website**. It still is a work in progress. It basically fetches and updates repositories from GitHub with the help of user pre-defined rules stored in `/usr/share/hubtodate/rules`.
+Welcome to **HubToDate's website**. It still is a work in progress.
 
-If you want to check the source code, [it is hosted on GitHub](https://github.com/demostanis/hubtodate). There is also a nice README explaining *why* you probably should use HubToDate. This website focuses on *how* to use it.
+Many distributions lack some software which can be found on GitHub, most of the time because they are not popular enough. You have the choice to install the binaries at the risk of keeping outdated software on your computer... OR to use **HubToDate**.
+
+It basically fetches and updates repositories from GitHub with the help of user pre-defined rules stored in `/usr/share/hubtodate/rules`.
+
+If you want to check the source code, [it is hosted on GitHub](https://github.com/demostanis/hubtodate).
 
 Index of unfinished documentation
 ---------------------------------
