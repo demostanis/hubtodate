@@ -4,7 +4,8 @@
 
 mkdir -p dist
 tar caf dist/hubtodate.tar.gz lib/ rules/ hubtodate META6.json
-gpg --sign dist/hubtodate.tar.gz
-mv dist/hubtodate.tar.gz.gpg dist/hubtodate.tar.gz
-sha256sum dist/hubtodate.tar.gz > dist/sha256sums.txt
+cd dist
+gpg --sign hubtodate.tar.gz
+mv hubtodate.tar.gz.gpg hubtodate.tar.gz
+sha256sum hubtodate.tar.gz > sha256sums.txt
 echo "done"
