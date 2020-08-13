@@ -13,6 +13,7 @@ package HubToDate::CLI {
   # without updating?)
   multi MAIN(
     Str :$rules-dir?,    #= Specify a custom rules directory
+    Str :$gpg-user?      #= Specify user to use to verify with GPG
   ) is export {
     # The program requires root, as it needs to access the root-owned
     # rules direcotry, and some software will require root to install
@@ -42,7 +43,8 @@ package HubToDate::CLI {
         { "$rule-dir/$_".IO.f && !$_.ends-with(".ex"|".exx"|".example") }
         -> $rule-file {
         # ... and process it
-        my Rule $rule .= new(file => $rule-file);
+        my Rule $rule .= new(file => $rule-file,
+          options => %(:$gpg-user,));
       }
     }
   }

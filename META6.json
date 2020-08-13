@@ -5,6 +5,7 @@
   "description": "Automatically fetches and updates repositories from GitHub",
   "depends": [
     "Colorizable",
+    "GPGME",
     "WWW"
   ],
   "license": "BSD-3-Clause",

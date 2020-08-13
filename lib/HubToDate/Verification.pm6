@@ -1,12 +1,13 @@
 use HubToDate::Setting;
 use HubToDate::Log;
+use GPGME;
 use WWW;
 
 package HubToDate::Verification {
   class Verification does Setting is export {
     our $name = "verification"; # Field name
 
-    method check(@ (Str:D $archive where *.IO.f, %repository) --> Promise:D) {
+    method check(@ (Str:D $archive where *.IO.f, %repository), %options? --> Promise:D) {
       # In case sha256sums setting was specified,
       # download the checksums file and verify files
       # by spawning a `sha256sum` process
@@ -63,7 +64,32 @@ package HubToDate::Verification {
       }
 
       if %.settings{"gpgkey"} {
-        # Not Yet Implemented
+        # Dirty way of getting user's .gnupg folder
+        # One can specify --gpg-user=... to the CLI
+        # to change the GPG user
+
+        my $homedir;
+        if $_ = %options{"gpg-user"} {
+          $homedir = shell("echo ~$_}", :out).out.get ~ "/.gnupg";
+        } elsif %*ENV{"SUDO_USER"} && %*ENV{"SUDO_USER"} ne "root" &&
+          %*ENV{"SUDO_USER"} ~~ / ^ <[a..zA..Z0..9\-_]>+ $ / {
+          $homedir = shell("echo ~{%*ENV{'SUDO_USER'}}", :out).out.get ~ "/.gnupg";
+        } else {
+          $homedir = "/root/.gnupg";
+        }
+
+        log VERBOSE, "Verifying archive's GPG signature...";
+
+        my $gpg = GPGME.new(:$homedir, :armor);
+        $gpg.verify($archive.IO);
+
+        for $gpg.verify-result.signatures -> $sig {
+          if $sig.summary.isset("valid") {
+            log VERBOSE, "Archive was signed by $sig.fpr()";
+          } else {
+            log ERROR, "Key $sig.fpr() isn't trusted! ($sig.summary())";
+          }
+        }
       }
 
       $p.keep: $archive;

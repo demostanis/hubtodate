@@ -5,7 +5,8 @@ package HubToDate::Options {
     our $name = "options";
 
     # TODO: process options
-    method process {
+    method process returns Hash:D {
+      %();
     }
   }
 }

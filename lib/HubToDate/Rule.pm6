@@ -19,7 +19,7 @@ package HubToDate::Rule {
     has Verification:D $!verification is required;
     has Options:D $!options is required;
 
-    submethod BUILD(IO::Path:D :$!file where *.f) {
+    submethod BUILD(IO::Path:D :$!file where *.f, :%options) {
       log VERBOSE, "Parsing rule {$!file.basename}...";
       my %contents = parse($!file, { log ERROR, "Failed to parse rule!"; });
 
@@ -58,6 +58,8 @@ package HubToDate::Rule {
       # ... then, fetch => download => check => unpack => install
       # (more explained into their respective subroutines)
 
+      %options = %(|%options, |$!options.process);
+
       my @steps =
         @($!repository, "fetch"),
         @($!release, "download"),
@@ -72,7 +74,7 @@ package HubToDate::Rule {
       # return 42, "check" will be called with 42)
       for @steps -> ($setting, $step) {
         my &method = $setting.^find_method($step);
-        my Promise $attempt = $curr ?? method($setting, $curr) !! method($setting);
+        my Promise $attempt = $curr ?? method($setting, $curr, %options) !! method($setting);
         $curr = await $attempt;
 
         CATCH {

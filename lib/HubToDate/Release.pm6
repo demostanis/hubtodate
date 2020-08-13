@@ -10,7 +10,7 @@ package HubToDate::Release {
   class Release does Setting is export {
     our $name = "release";
 
-    method download(@ (%repository, Str:D $to) --> Promise:D) {
+    method download(@ (%repository, Str:D $to), %options? --> Promise:D) {
       my Promise $p .= new;
 
       my $match = $.settings{"match"};
@@ -61,10 +61,13 @@ package HubToDate::Release {
       }
     }
 
-    method unpack(Str:D $archive where *.IO.f --> Promise:D) {
+    method unpack(Str:D $archive where *.IO.f, %options? --> Promise:D) {
       my Promise $p .= new;
 
-      if %.settings{"unpack"}.defined && %.settings{"unpack"} ne "..." {
+      # Checks for a potential unpack command and
+      # executes it. It replaces <archive> by the
+      # downloaded archive's path
+      if %.settings{"unpack"}.defined {
         log VERBOSE, "Unpacking archive using command: ";
         say .white with "      %.settings{'unpack'}" but Colorizable;
 
@@ -79,7 +82,7 @@ package HubToDate::Release {
       $p;
     }
 
-    method install(Str:D $folder where *.IO.d --> Promise:D) {
+    method install(Str:D $folder where *.IO.d, %options --> Promise:D) {
       # We install the software using user-provided's command.
       # We perhaps should refuse if the directory folder has
       # unrestrictive permissions? Or check if standard output
@@ -96,6 +99,7 @@ package HubToDate::Release {
       # to a negative value. I should improve this, sometimes
       # commands without root may fail because of the single
       # quotes
+      # IDEA: Open a shell as user nobody and pipe $installer
       my $installer = %.settings{"install"};
       my $install-command = (%.settings{"root"} // True)
         ?? $installer
