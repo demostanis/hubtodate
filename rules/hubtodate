@@ -11,6 +11,7 @@ install = zef install --/test --force . && \
   mv -f hubtodate /usr/bin
 root = yes
 
-; We don't have GPG verification yet
 [verification]
 sha256sums = sha256sums.txt
+gpgkey = CA6BE13227DFDCDE248EA199A6AF79102D10A5DC
+          ; demostanis worlds <demostanis@protonmail.com>
