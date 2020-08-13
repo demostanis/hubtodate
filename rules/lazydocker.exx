@@ -1,17 +1,28 @@
 ; Another working example to install 'lazydocker'
-; It is made as short as possible, if you want a
-; more explained one, you should take a look at
-; the one for 'bat'
 
+; Information related to the GitHub repository
+; It will tell HubToDate to search github.com/jesseduffield/lazydocker
 [repository]
 owner = jesseduffield
 name = lazydocker
 
 [release]
+; A Raku regex to match archive's name
+; Should match "lazydocker_0.13_Linux_x86_64.tar.gz"
+;  or "lazydocker_23.111_Linux_x86_64.tar.gz"   etc.
 match = 'lazydocker_' \d+ % '.' '_Linux_x86_64.tar.gz'
+
+; How to unpack the downloaded archive
+; Here we use tar
 unpack = tar xzf <archive> lazydocker
+
+; How to install the software
+; Here we copy the executable to /usr/bin
 install = mv -f lazydocker /usr/bin
+
+; Whetever we require root or not
 root = yes
 
 [verification]
+; A file containing sha256 checksums
 sha256sums = checksums.txt
