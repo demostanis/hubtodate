@@ -7,25 +7,25 @@
     "Colorizable",
     "WWW"
   ],
+  "license": "BSD-3-Clause",
+  "author": "demostanis",
+  "provides": {
+    "HubToDate::CLI": "lib/HubToDate/CLI.pm6",
+    "HubToDate::Rule": "lib/HubToDate/Rule.pm6",
+    "HubToDate::Parse": "lib/HubToDate/Parse.pm6",
+    "HubToDate::Log": "lib/HubToDate/Log.pm6",
+    "HubToDate::Setting": "lib/HubToDate/Setting.pm6",
+    "HubToDate::Repository": "lib/HubToDate/Repository.pm6",
+    "HubToDate::Release": "lib/HubToDate/Release.pm6",
+    "HubToDate::Verification": "lib/HubToDate/Verification.pm6",
+    "HubToDate::Options": "lib/HubToDate/Options.pm6",
+    "HubToDate::GitHub": "lib/HubToDate/GitHub.pm6",
+    "HubToDate::GitLab": "lib/HubToDate/GitLab.pm6",
+    "HubToDate::Config": "lib/HubToDate/Config.pm6"
+  },
   "source-url": "https://github.com/demostanis/hubtodate",
   "support": {
     "source": "https://github.com/demostanis/hubtodate.git",
     "bugtracker": "https://github.com/demostanis/hubtodate/issues"
   },
-  "license": "BSD-3-Clause",
-  "author": "demostanis",
-  "provides": {
-    "HubToDate::CLI": "hubtodate/lib/HubToDate/CLI.pm6",
-    "HubToDate::Rule": "hubtodate/lib/HubToDate/Rule.pm6",
-    "HubToDate::Parse": "hubtodate/lib/HubToDate/Parse.pm6",
-    "HubToDate::Log": "hubtodate/lib/HubToDate/Log.pm6",
-    "HubToDate::Setting": "hubtodate/lib/HubToDate/Setting.pm6",
-    "HubToDate::Repository": "hubtodate/lib/HubToDate/Repository.pm6",
-    "HubToDate::Release": "hubtodate/lib/HubToDate/Release.pm6",
-    "HubToDate::Verification": "hubtodate/lib/HubToDate/Verification.pm6",
-    "HubToDate::Options": "hubtodate/lib/HubToDate/Options.pm6",
-    "HubToDate::GitHub": "hubtodate/lib/HubToDate/GitHub.pm6",
-    "HubToDate::GitLab": "hubtodate/lib/HubToDate/GitLab.pm6",
-    "HubToDate::Config": "hubtodate/lib/HubToDate/Config.pm6"
-  }
 }

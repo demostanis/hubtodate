@@ -39,7 +39,7 @@ package HubToDate::CLI {
       # check if it's not an example file (not
       # ending in .ex or .example) ...
       for dir $rule-dir, test =>
-        { "$rule-dir/$_".IO.f && !$_.ends-with(".ex"|".example") }
+        { "$rule-dir/$_".IO.f && !$_.ends-with(".ex"|".exx"|".example") }
         -> $rule-file {
         # ... and process it
         my Rule $rule .= new(file => $rule-file);

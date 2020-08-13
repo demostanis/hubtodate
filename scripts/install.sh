@@ -8,9 +8,9 @@
 
 zef install --/test --force .
 mkdir -p /usr/share/hubtodate
-cp hubtodate/bin/hubtodate /usr/bin
-cp -rn hubtodate/rules /usr/share/hubtodate/rules
-cp -n hubtodate/etc/hubtodate.conf /etc
+cp hubtodate /usr/bin
+cp -rn rules /usr/share/hubtodate/rules
+cp -n hubtodate.conf /etc
 chmod 600 -R /usr/share/hubtodate
 chmod 644 /etc/hubtodate.conf
 hubtodate

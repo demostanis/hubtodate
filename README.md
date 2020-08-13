@@ -23,8 +23,7 @@ git clone https://github.com/demostanis/hubtodate.git /tmp/hubtodate && \
   rm -rf /tmp/hubtodate
 ```
 (Note: For this script to run correctly, `git` and `curl` are required.)
-Otherwise, you can add `./hubtodate/bin` to your `$PATH`, and write some rules inside
-`/usr/share/hubtodate/rules`. It can also run inside Docker for testing purposes, which
+It can also run inside Docker for testing purposes, which
 is pretty useless for a normal user.
 
 ## This seems nice, how do I contribute?
