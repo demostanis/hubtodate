@@ -81,7 +81,16 @@ package HubToDate::Verification {
         log VERBOSE, "Verifying archive's GPG signature...";
 
         my $gpg = GPGME.new(:$homedir, :armor);
-        $gpg.verify($archive.IO) // log WARN, "Archive isn't signed...";
+
+        try {
+          $gpg.verify($archive.IO);
+
+          CATCH {
+            default {
+              log WARN, "Archive isn't signed...";
+            }
+          }
+        }
 
         for $gpg.verify-result.signatures -> $sig {
           if $sig.summary.isset("valid") {
