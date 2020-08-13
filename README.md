@@ -2,7 +2,7 @@
 
 ## What does it do?
 This software basically fetches and updates repositories from GitHub
-with the help of user pre-defined rules (or example ones in `./hubtodate/rules`)
+with the help of user pre-defined rules (or example ones in `./rules`)
 stored in `/usr/share/hubtodate`. It is written in Raku.
 We also have a [website](https://hubtodate.mooo.com/).
 
