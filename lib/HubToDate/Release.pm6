@@ -96,19 +96,13 @@ package HubToDate::Release {
       say .white with "      %.settings{'install'}" but Colorizable;
 
       # Run command as `nobody` user in case root is set
-      # to a negative value. I should improve this, sometimes
-      # commands without root may fail because of the single
-      # quotes
-      # IDEA: Open a shell as user nobody and pipe $installer
+      # to a negative value.
       my $installer = %.settings{"install"};
-      my $install-command = (%.settings{"root"} // True)
-        ?? $installer
-        !! "su nobody -s/bin/sh -c '{$installer}'";
+      my $proc = (%.settings{"root"} // True)
+        ?? run «su root -s/bin/sh -c "$installer"», cwd => $folder
+        !! run «su nobody -s/bin/sh -c "$installer"», cwd => $folder;
 
-      my $proc = shell $install-command,
-        cwd => $folder;
-
-      log ERROR, "An error occured while trying to install..." if $proc.exitcode;
+      log ERROR, "An error occured while trying to install... $proc.exitcode()" if $proc.exitcode;
       log VERBOSE, "Done!";
 
       $p.keep;

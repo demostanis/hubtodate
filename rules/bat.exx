@@ -32,7 +32,7 @@ root = yes ; Whetever root is required or not
 [verification]
 sha256sums = checksums.txt ; A file containing sha256 checksums
                            ; Can also be a regular expression
-gpgkey = ...
+signature = ...
 
 
 ; Some options to manipulate

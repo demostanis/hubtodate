@@ -24,14 +24,12 @@ package HubToDate::Verification {
         my $file = $method.value;
         for %repository{"assets"}.kv -> $i, %asset {
           if %asset{"name"} ~~ / <$file> / {
+            log VERBOSE, "Checking {$method.key}...";
+
             # The checksums file may include checksums for not-downloaded files
             my Proc::Async $proc .= new: :w, $method.key.substr(0, *-1), "--ignore-missing", "--check";
 
             react {
-              # Whenever the process was spawned...
-              whenever $proc.ready {
-                log VERBOSE, "Checking {$method.key}...";
-              }
               # Whenever there was an error...
               whenever $proc.stderr {
                 log ERROR, "Error while checking sums: $_";
@@ -63,40 +61,43 @@ package HubToDate::Verification {
         log WARN, "Not verifying checksums, archive could be corrupted!";
       }
 
-      if %.settings{"gpgkey"} {
-        # Dirty way of getting user's .gnupg folder
-        # One can specify --gpg-user=... to the CLI
-        # to change the GPG user
+      if my $file = %.settings{"signature"} {
+        for %repository{"assets"}.kv -> $i, %asset {
+          if %asset{"name"} ~~ / <$file> / {
+            # Dirty way of getting user's .gnupg folder
+            # One can specify --gpg-user=... to the CLI
+            # to change the GPG user
 
-        my $homedir;
-        if $_ = %options{"gpg-user"} {
-          $homedir = shell("echo ~$_}", :out).out.get ~ "/.gnupg";
-        } elsif %*ENV{"SUDO_USER"} && %*ENV{"SUDO_USER"} ne "root" &&
-          %*ENV{"SUDO_USER"} ~~ / ^ <[a..zA..Z0..9\-_]>+ $ / {
-          $homedir = shell("echo ~{%*ENV{'SUDO_USER'}}", :out).out.get ~ "/.gnupg";
-        } else {
-          $homedir = "/root/.gnupg";
-        }
-
-        log VERBOSE, "Verifying archive's GPG signature...";
-
-        my $gpg = GPGME.new(:$homedir, :armor);
-
-        try {
-          $gpg.verify($archive.IO);
-
-          CATCH {
-            default {
-              log WARN, "Archive isn't signed...";
+            my $homedir;
+            if $_ = %options{"gpg-user"} {
+              $homedir = shell("echo ~$_}", :out).out.get ~ "/.gnupg";
+            } elsif %*ENV{"SUDO_USER"} && %*ENV{"SUDO_USER"} ne "root" &&
+              %*ENV{"SUDO_USER"} ~~ / ^ <[a..zA..Z0..9\-_]>+ $ / {
+              $homedir = shell("echo ~{%*ENV{'SUDO_USER'}}", :out).out.get ~ "/.gnupg";
+            } else {
+              $homedir = "/root/.gnupg";
             }
-          }
-        }
 
-        for $gpg.verify-result.signatures -> $sig {
-          if $sig.summary.isset("valid") {
-            log VERBOSE, "Archive was signed by $sig.fpr(), trusted";
-          } else {
-            log ERROR, "Key $sig.fpr() isn't trusted! ($sig.summary())";
+            log VERBOSE, "Verifying archive's GPG signature...";
+
+            my $gpg = GPGME.new(:$homedir, :armor);
+            try {
+              $gpg.verify: get(%asset{"browser_download_url"});
+
+              CATCH {
+                default {
+                  log WARN, "Archive isn't signed...";
+                }
+              }
+            }
+
+            for $gpg.signatures -> $sig {
+              if $sig.summary.isset("valid") {
+                log VERBOSE, "Archive was signed by $sig.fpr(), trusted";
+              } else {
+                log ERROR, "Key $sig.fpr() isn't trusted! ($sig.summary())";
+              }
+            }
           }
         }
       }

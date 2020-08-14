@@ -13,3 +13,4 @@ root = yes
 
 [verification]
 sha256sums = sha256sums.txt
+signature = hubtodate.tar.gz
