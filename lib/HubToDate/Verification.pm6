@@ -80,15 +80,20 @@ package HubToDate::Verification {
 
             log VERBOSE, "Verifying archive's GPG signature...";
 
+            # Verifies downloaded GPG signature
+            # If it throws an Failure, it means that archive
+            # is not signed. If it doesn't, check if it's valid
             my $gpg = GPGME.new(:$homedir, :armor);
             try {
-              $gpg.verify: get(%asset{"browser_download_url"});
-
               CATCH {
                 default {
                   log WARN, "Archive isn't signed...";
                 }
               }
+
+              my $sig-file = "{$archive.IO.dirname}/%asset{'name'}";
+              $sig-file.IO.spurt: get(%asset{"browser_download_url"});
+              $gpg.verify: $sig-file.IO;
             } && do for $gpg.signatures -> $sig {
               if $sig.summary.isset("valid") {
                 log VERBOSE, "Archive was signed by $sig.fpr(), trusted";
