@@ -89,15 +89,15 @@ package HubToDate::Verification {
                   log WARN, "Archive isn't signed...";
                 }
               }
-            }
-
-            for $gpg.signatures -> $sig {
+            } && do for $gpg.signatures -> $sig {
               if $sig.summary.isset("valid") {
                 log VERBOSE, "Archive was signed by $sig.fpr(), trusted";
               } else {
                 log ERROR, "Key $sig.fpr() isn't trusted! ($sig.summary())";
               }
             }
+
+            last;
           }
         }
       }
